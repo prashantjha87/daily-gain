@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Gain</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Gain</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <div class="container">
-
-        <!-- Login Screen -->
-        <div id="login-screen" class="card">
-            <h2>Login</h2>
-            <input type="text" id="username" placeholder="Enter your username">
-            <button onclick="login()">Login</button>
-        </div>
-
-        <!-- App Screen -->
-        <div id="app-screen" class="hidden">
-            <header>
-                <h1>Daily Gain</h1>
-                <button onclick="logout()" class="logout-btn">Logout</button>
-            </header>
-
-            <main>
-                <h2>Welcome, <span id="user-display"></span>!</h2>
-                <p>Your daily progress goes here.</p>
-
-                <!-- Example tracker -->
-                <input type="text" id="task" placeholder="What did you achieve today?">
-                <button onclick="saveTask()">Save</button>
-
-                <ul id="task-list"></ul>
-            </main>
-        </div>
+  <div id="auth-section" class="card">
+    <h1>Daily Gain</h1>
+    <div id="login-form">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button onclick="loginUser()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
     </div>
 
-    <script src="app.js"></script>
+    <div id="register-form" style="display:none;">
+      <h2>Register</h2>
+      <input type="text" id="register-name" placeholder="Full Name" />
+      <input type="text" id="register-mobile" placeholder="Mobile" />
+      <input type="email" id="register-email" placeholder="Email" />
+      <input type="password" id="register-password" placeholder="Password" />
+      <button onclick="registerUser()">Register</button>
+      <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+  </div>
+
+  <div id="app-section" style="display:none;">
+    <header>
+      <h1>Daily Gain - Bro Split</h1>
+      <button id="logout-btn" onclick="logoutUser()">Logout</button>
+    </header>
+    <main>
+      <div class="workout-day-selector">
+        <label>Select Day:</label>
+        <select id="day-select" onchange="loadWorkout()">
+          <option value="Monday">Monday - Chest</option>
+          <option value="Tuesday">Tuesday - Back</option>
+          <option value="Wednesday">Wednesday - Shoulders</option>
+          <option value="Thursday">Thursday - Arms</option>
+          <option value="Friday">Friday - Legs</option>
+        </select>
+      </div>
+      <div id="workout-container"></div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

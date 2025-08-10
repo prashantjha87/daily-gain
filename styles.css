@@ -1,55 +1,60 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #eee;
+  margin: 0;
+  padding: 0;
 }
 
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    text-align: center;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
-.hidden {
-    display: none;
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
+input, select {
+  background: #2a2a2a;
+  color: #eee;
 }
 
 button {
-    padding: 10px 15px;
-    background: #2196F3;
-    color: white;
-    border: none;
-    cursor: pointer;
+  background: #ff5722;
+  color: white;
+  cursor: pointer;
 }
 
 button:hover {
-    background: #1976D2;
+  background: #ff784e;
 }
 
-.logout-btn {
-    background: #f44336;
-    float: right;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #1e1e1e;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-    text-align: left;
+.workout-item {
+  background: #1e1e1e;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+}
+
+.workout-item input {
+  width: 45%;
+  display: inline-block;
 }
