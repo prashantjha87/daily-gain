@@ -1,101 +1,99 @@
-let workouts = {
-  "Monday": ["Bench Press", "Incline Dumbbell Press", "Chest Fly"],
-  "Tuesday": ["Pull Ups", "Barbell Row", "Lat Pulldown"],
-  "Wednesday": ["Overhead Press", "Lateral Raise", "Front Raise"],
-  "Thursday": ["Bicep Curl", "Tricep Pushdown", "Hammer Curl"],
-  "Friday": ["Squat", "Leg Press", "Leg Curl"]
-};
+let currentUser = null;
 
 function showRegister() {
-  document.getElementById("login-form").style.display = "none";
-  document.getElementById("register-form").style.display = "block";
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("register-form").style.display = "block";
 }
 
 function showLogin() {
-  document.getElementById("login-form").style.display = "block";
-  document.getElementById("register-form").style.display = "none";
+    document.getElementById("register-form").style.display = "none";
+    document.getElementById("login-form").style.display = "block";
 }
 
 function registerUser() {
-  let name = document.getElementById("register-name").value;
-  let mobile = document.getElementById("register-mobile").value;
-  let email = document.getElementById("register-email").value;
-  let password = document.getElementById("register-password").value;
+    const mobile = document.getElementById("register-mobile").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
 
-  if (!name || !mobile || !email || !password) {
-    alert("Please fill all fields");
-    return;
-  }
+    if (!mobile || !email || !password) {
+        alert("Please fill all fields.");
+        return;
+    }
 
-  let users = JSON.parse(localStorage.getItem("users") || "[]");
-  if (users.find(u => u.email === email)) {
-    alert("Email already registered!");
-    return;
-  }
+    let users = JSON.parse(localStorage.getItem("users") || "{}");
 
-  users.push({ name, mobile, email, password, logs: {} });
-  localStorage.setItem("users", JSON.stringify(users));
-  alert("Registration successful! Please login.");
-  showLogin();
+    if (users[email]) {
+        alert("User already exists. Please login.");
+        return;
+    }
+
+    users[email] = { mobile, password, workouts: [] };
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Registration successful! Please log in.");
+    showLogin();
 }
 
 function loginUser() {
-  let email = document.getElementById("login-email").value;
-  let password = document.getElementById("login-password").value;
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
 
-  let users = JSON.parse(localStorage.getItem("users") || "[]");
-  let user = users.find(u => u.email === email && u.password === password);
+    let users = JSON.parse(localStorage.getItem("users") || "{}");
 
-  if (user) {
-    localStorage.setItem("currentUser", email);
+    if (!users[email] || users[email].password !== password) {
+        alert("Invalid credentials.");
+        return;
+    }
+
+    currentUser = email;
     document.getElementById("auth-section").style.display = "none";
     document.getElementById("app-section").style.display = "block";
-    loadWorkout();
-  } else {
-    alert("Invalid email or password");
-  }
+    loadWorkouts();
 }
 
 function logoutUser() {
-  localStorage.removeItem("currentUser");
-  document.getElementById("app-section").style.display = "none";
-  document.getElementById("auth-section").style.display = "block";
+    currentUser = null;
+    document.getElementById("app-section").style.display = "none";
+    document.getElementById("auth-section").style.display = "block";
 }
 
-function loadWorkout() {
-  let day = document.getElementById("day-select").value;
-  let container = document.getElementById("workout-container");
-  container.innerHTML = "";
+function logWorkout() {
+    const day = document.getElementById("workout-day").value;
+    const reps = document.getElementById("reps").value;
+    const weight = document.getElementById("weight").value;
 
-  workouts[day].forEach(exercise => {
-    let div = document.createElement("div");
-    div.className = "workout-item";
-    div.innerHTML = `
-      <strong>${exercise}</strong><br>
-      Reps: <input type="number" id="${exercise}-reps" placeholder="Reps" />
-      Weight: <input type="number" id="${exercise}-weight" placeholder="Weight (kg)" />
-      <button onclick="saveWorkout('${day}', '${exercise}')">Save</button>
-    `;
-    container.appendChild(div);
-  });
+    if (!day || !reps || !weight) {
+        alert("Please enter all workout details.");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users") || "{}");
+    let workoutEntry = {
+        date: new Date().toLocaleDateString(),
+        day,
+        reps,
+        weight
+    };
+
+    users[currentUser].workouts.push(workoutEntry);
+    localStorage.setItem("users", JSON.stringify(users));
+    loadWorkouts();
 }
 
-function saveWorkout(day, exercise) {
-  let reps = document.getElementById(`${exercise}-reps`).value;
-  let weight = document.getElementById(`${exercise}-weight`).value;
+function loadWorkouts() {
+    let users = JSON.parse(localStorage.getItem("users") || "{}");
+    let workouts = users[currentUser]?.workouts || [];
 
-  if (!reps || !weight) {
-    alert("Enter reps and weight");
-    return;
-  }
+    let tableBody = document.querySelector("#history-table tbody");
+    tableBody.innerHTML = "";
 
-  let users = JSON.parse(localStorage.getItem("users") || "[]");
-  let currentUser = localStorage.getItem("currentUser");
-  let user = users.find(u => u.email === currentUser);
-
-  if (!user.logs[day]) user.logs[day] = [];
-  user.logs[day].push({ exercise, reps, weight, date: new Date().toLocaleDateString() });
-
-  localStorage.setItem("users", JSON.stringify(users));
-  alert(`Saved ${exercise} - ${reps} reps @ ${weight} kg`);
+    workouts.forEach(w => {
+        let row = `<tr>
+            <td>${w.date}</td>
+            <td>${w.day}</td>
+            <td>${w.reps}</td>
+            <td>${w.weight}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
 }

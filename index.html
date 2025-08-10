@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Gain</title>
-  <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Gain</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="auth-section" class="card">
-    <h1>Daily Gain</h1>
-    <div id="login-form">
-      <h2>Login</h2>
-      <input type="email" id="login-email" placeholder="Email" />
-      <input type="password" id="login-password" placeholder="Password" />
-      <button onclick="loginUser()">Login</button>
-      <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+    <div id="auth-section">
+        <h1>Daily Gain</h1>
+        <div id="login-form">
+            <h2>Login</h2>
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button onclick="loginUser()">Login</button>
+            <p>Not registered? <a href="#" onclick="showRegister()">Create an account</a></p>
+        </div>
+
+        <div id="register-form" style="display:none;">
+            <h2>Register</h2>
+            <input type="text" id="register-mobile" placeholder="Mobile Number" required>
+            <input type="email" id="register-email" placeholder="Email" required>
+            <input type="password" id="register-password" placeholder="Password" required>
+            <button onclick="registerUser()">Register</button>
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
     </div>
 
-    <div id="register-form" style="display:none;">
-      <h2>Register</h2>
-      <input type="text" id="register-name" placeholder="Full Name" />
-      <input type="text" id="register-mobile" placeholder="Mobile" />
-      <input type="email" id="register-email" placeholder="Email" />
-      <input type="password" id="register-password" placeholder="Password" />
-      <button onclick="registerUser()">Register</button>
-      <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    <div id="app-section" style="display:none;">
+        <header>
+            <h1>Daily Gain - Bro Split Tracker</h1>
+            <button onclick="logoutUser()">Logout</button>
+        </header>
+
+        <section>
+            <h2>Log Workout</h2>
+            <select id="workout-day">
+                <option value="Chest">Chest</option>
+                <option value="Back">Back</option>
+                <option value="Legs">Legs</option>
+                <option value="Shoulders">Shoulders</option>
+                <option value="Arms">Arms</option>
+            </select>
+            <input type="number" id="reps" placeholder="Reps" min="1">
+            <input type="number" id="weight" placeholder="Weight (kg)" min="1">
+            <button onclick="logWorkout()">Add Workout</button>
+        </section>
+
+        <section>
+            <h2>Workout History</h2>
+            <table id="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Workout</th>
+                        <th>Reps</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
     </div>
-  </div>
 
-  <div id="app-section" style="display:none;">
-    <header>
-      <h1>Daily Gain - Bro Split</h1>
-      <button id="logout-btn" onclick="logoutUser()">Logout</button>
-    </header>
-    <main>
-      <div class="workout-day-selector">
-        <label>Select Day:</label>
-        <select id="day-select" onchange="loadWorkout()">
-          <option value="Monday">Monday - Chest</option>
-          <option value="Tuesday">Tuesday - Back</option>
-          <option value="Wednesday">Wednesday - Shoulders</option>
-          <option value="Thursday">Thursday - Arms</option>
-          <option value="Friday">Friday - Legs</option>
-        </select>
-      </div>
-      <div id="workout-container"></div>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
