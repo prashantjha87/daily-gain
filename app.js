@@ -1,42 +1,47 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('workoutForm');
-    const logContainer = document.getElementById('workoutLog');
-    let workouts = JSON.parse(localStorage.getItem('broSplitWorkouts')) || [];
+document.getElementById('add-btn').addEventListener('click', function () {
+    const day = document.getElementById('day').value;
+    const exercise = document.getElementById('exercise').value;
+    const weight = document.getElementById('weight').value;
+    const reps = document.getElementById('reps').value;
+    const date = new Date().toLocaleDateString();
 
-    function renderWorkouts() {
-        logContainer.innerHTML = '';
-        workouts.forEach((w, index) => {
-            const div = document.createElement('div');
-            div.className = 'log-item';
-            div.innerHTML = `
-                <strong>${w.day}</strong> - ${w.exercise} | ${w.reps} reps | ${w.weight} kg
-                <br><small>${w.date}</small>
-                <br><button onclick="deleteWorkout(${index})">Delete</button>
-            `;
-            logContainer.appendChild(div);
-        });
+    if (!exercise || !weight || !reps) {
+        alert('Please fill in all fields!');
+        return;
     }
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        const workout = {
-            day: document.getElementById('day').value,
-            exercise: document.getElementById('exercise').value,
-            reps: document.getElementById('reps').value,
-            weight: document.getElementById('weight').value,
-            date: new Date().toLocaleString()
-        };
-        workouts.push(workout);
-        localStorage.setItem('broSplitWorkouts', JSON.stringify(workouts));
-        form.reset();
-        renderWorkouts();
-    });
+    const workout = { day, exercise, weight, reps, date };
+    let logs = JSON.parse(localStorage.getItem('workouts')) || [];
+    logs.push(workout);
+    localStorage.setItem('workouts', JSON.stringify(logs));
 
-    window.deleteWorkout = index => {
-        workouts.splice(index, 1);
-        localStorage.setItem('broSplitWorkouts', JSON.stringify(workouts));
-        renderWorkouts();
-    };
-
-    renderWorkouts();
+    renderLog();
+    document.getElementById('exercise').value = '';
+    document.getElementById('weight').value = '';
+    document.getElementById('reps').value = '';
 });
+
+function renderLog() {
+    const logBody = document.getElementById('log-body');
+    logBody.innerHTML = '';
+    let logs = JSON.parse(localStorage.getItem('workouts')) || [];
+    logs.forEach(log => {
+        const row = `<tr>
+            <td>${log.day}</td>
+            <td>${log.exercise}</td>
+            <td>${log.weight}</td>
+            <td>${log.reps}</td>
+            <td>${log.date}</td>
+        </tr>`;
+        logBody.innerHTML += row;
+    });
+}
+
+renderLog();
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(() => {
+        console.log('Service Worker registered');
+    });
+}
