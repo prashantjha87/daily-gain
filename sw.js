@@ -1,21 +1,21 @@
-self.addEventListener('install', event => {
-    event.waitUntil(
+self.addEventListener('install', e => {
+    e.waitUntil(
         caches.open('daily-gain-cache').then(cache => {
             return cache.addAll([
-                '/',
-                '/index.html',
-                '/styles.css',
-                '/app.js',
-                '/manifest.json'
+                './',
+                './index.html',
+                './styles.css',
+                './app.js',
+                './manifest.json'
             ]);
         })
     );
 });
 
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request).then(response => {
-            return response || fetch(event.request);
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        caches.match(e.request).then(response => {
+            return response || fetch(e.request);
         })
     );
 });

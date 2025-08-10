@@ -3,59 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Gain - Bro Split Tracker</title>
+    <title>Daily Gain Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#222">
 </head>
 <body>
-    <header>
-        <h1>💪 Bro Split Workout Tracker</h1>
-    </header>
+    <div class="container">
+        <h1>💪 Daily Gain Tracker</h1>
 
-    <main>
-        <section id="workout-form">
-            <label for="day">Workout Day:</label>
-            <select id="day">
-                <option>Chest</option>
-                <option>Back</option>
-                <option>Shoulders</option>
-                <option>Arms</option>
-                <option>Legs</option>
-            </select>
+        <!-- Login Form -->
+        <div id="login-section">
+            <input type="text" id="username" placeholder="Enter username">
+            <button onclick="login()">Login</button>
+        </div>
 
-            <label for="exercise">Exercise:</label>
-            <input type="text" id="exercise" placeholder="Bench Press">
+        <!-- App Section -->
+        <div id="app-section" style="display:none;">
+            <p>Logged in as <strong id="current-user"></strong> <button onclick="logout()">Logout</button></p>
 
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight">
+            <input type="text" id="gain-input" placeholder="Enter today's gain">
+            <button onclick="saveGain()">Save</button>
 
-            <label for="reps">Reps:</label>
-            <input type="number" id="reps">
-
-            <button id="add-btn">Add Set</button>
-        </section>
-
-        <section id="log">
-            <h2>Workout Log</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Exercise</th>
-                        <th>Weight</th>
-                        <th>Reps</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="log-body"></tbody>
-            </table>
-        </section>
-    </main>
-
-    <footer>
-        <p>🏋️ Daily Gain | Track your bro split gains!</p>
-    </footer>
+            <h3>Your Gains</h3>
+            <ul id="gain-list"></ul>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
