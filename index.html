@@ -3,59 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Gain - Bro Split Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Daily Gain</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#222">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>💪 Bro Split Workout Tracker</h1>
-    </header>
+    <div class="container">
 
-    <main>
-        <section id="workout-form">
-            <label for="day">Workout Day:</label>
-            <select id="day">
-                <option>Chest</option>
-                <option>Back</option>
-                <option>Shoulders</option>
-                <option>Arms</option>
-                <option>Legs</option>
-            </select>
+        <!-- Login Screen -->
+        <div id="login-screen" class="card">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Enter your username">
+            <button onclick="login()">Login</button>
+        </div>
 
-            <label for="exercise">Exercise:</label>
-            <input type="text" id="exercise" placeholder="Bench Press">
+        <!-- App Screen -->
+        <div id="app-screen" class="hidden">
+            <header>
+                <h1>Daily Gain</h1>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </header>
 
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight">
+            <main>
+                <h2>Welcome, <span id="user-display"></span>!</h2>
+                <p>Your daily progress goes here.</p>
 
-            <label for="reps">Reps:</label>
-            <input type="number" id="reps">
+                <!-- Example tracker -->
+                <input type="text" id="task" placeholder="What did you achieve today?">
+                <button onclick="saveTask()">Save</button>
 
-            <button id="add-btn">Add Set</button>
-        </section>
-
-        <section id="log">
-            <h2>Workout Log</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Exercise</th>
-                        <th>Weight</th>
-                        <th>Reps</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="log-body"></tbody>
-            </table>
-        </section>
-    </main>
-
-    <footer>
-        <p>🏋️ Daily Gain | Track your bro split gains!</p>
-    </footer>
+                <ul id="task-list"></ul>
+            </main>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

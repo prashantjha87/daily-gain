@@ -1,10 +1,10 @@
 {
-  "name": "Daily Gain - Bro Split Tracker",
+  "name": "Daily Gain",
   "short_name": "DailyGain",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#111",
-  "theme_color": "#222",
+  "background_color": "#ffffff",
+  "theme_color": "#2196F3",
   "icons": [
     {
       "src": "icons/icon-192.png",

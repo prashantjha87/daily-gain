@@ -1,66 +1,55 @@
 body {
     font-family: Arial, sans-serif;
+    background: #f4f4f4;
     margin: 0;
-    background: #111;
-    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-header {
-    background: #222;
-    padding: 15px;
+.container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     text-align: center;
 }
 
-main {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+.hidden {
+    display: none;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-}
-
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    background: #333;
-    color: white;
-    border: 1px solid #444;
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
 }
 
 button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 10px;
-    background: #28a745;
-    border: none;
+    padding: 10px 15px;
+    background: #2196F3;
     color: white;
-    font-size: 16px;
+    border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background: #218838;
+    background: #1976D2;
 }
 
-table {
-    width: 100%;
-    margin-top: 15px;
-    border-collapse: collapse;
+.logout-btn {
+    background: #f44336;
+    float: right;
 }
 
-th, td {
-    border: 1px solid #444;
-    padding: 8px;
-    text-align: center;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #222;
-    font-size: 14px;
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
 }
